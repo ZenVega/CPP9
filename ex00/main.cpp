@@ -1,7 +1,8 @@
+#include "BitcoinExchange/BitcoinExchange.hpp"
 
-#include "BitcoinExchange.hpp"
-
-using std::cout;
-using std::endl;
-
-int main(void) { return 0; }
+int main(int argc, char **argv) {
+  BitcoinExchange bt_ex = BitcoinExchange();
+  if (argc == 2)
+    bt_ex.parse_csv(argv[1]);
+  return 0;
+}

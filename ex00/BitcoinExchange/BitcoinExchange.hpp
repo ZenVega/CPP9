@@ -10,13 +10,14 @@ class BitcoinExchange {
 private:
   std::map<time_t, float> _db;
   void parse_row(std::string row);
-  void parse_csv(char *fileName);
 
 public:
   BitcoinExchange();
   BitcoinExchange(const BitcoinExchange &other);
   BitcoinExchange &operator=(const BitcoinExchange &other);
   ~BitcoinExchange();
+
+  void parse_csv(char *fileName);
 
   class InvalidDateException : public std::exception {
     virtual const char *what() const throw();
