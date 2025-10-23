@@ -49,18 +49,21 @@ void BitcoinExchange::parse_row(string row) {
   float rate;
 
   try {
-    time = date_to_time_t(row.substr(0, 7));
-    rate = rate_str_to_float(row.substr(row.find('|') + 1));
+    time = date_to_time_t(row.substr(0, 10));
+    int index_rate = row.find(',');
+    if (index_rate == -1)
+      throw BitcoinExchange::InvalidDateException();
+    rate = rate_str_to_float(row.substr(index_rate + 1));
     _db[time] = rate;
   } catch (std::exception &e) {
     std::cout << "Exception caught: " << e.what() << std::endl;
   }
 }
 
-void BitcoinExchange::parse_csv(char *fileName) {
+void BitcoinExchange::parse_csv(void) {
 
   string DB_row;
-  std::ifstream DB_file(fileName);
+  std::ifstream DB_file("data.csv");
   bool first_line = true;
 
   while (getline(DB_file, DB_row)) {
@@ -74,6 +77,12 @@ void BitcoinExchange::parse_csv(char *fileName) {
        it++)
     std::cout << it->first << " : " << it->second << std::endl;
   DB_file.close();
+}
+
+void BitcoinExchange::parse_input(char *fileName) {
+  if (fileName)
+    return;
+  return;
 }
 
 const char *BitcoinExchange::InvalidDateException::what() const throw() {

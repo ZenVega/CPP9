@@ -17,7 +17,8 @@ public:
   BitcoinExchange &operator=(const BitcoinExchange &other);
   ~BitcoinExchange();
 
-  void parse_csv(char *fileName);
+  void parse_csv(void);
+  void parse_input(char *fileName);
 
   class InvalidDateException : public std::exception {
     virtual const char *what() const throw();

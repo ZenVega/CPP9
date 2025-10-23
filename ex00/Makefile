@@ -33,7 +33,10 @@ CFLAGS		= -g -Wall -Wextra -Werror -std=c++98
 all: $(NAME)
 
 run: $(NAME) 
-	./$(NAME)
+	./$(NAME) input.txt
+
+debug: $(NAME) 
+	gdb --args ./$(NAME) input.txt
 
 $(NAME): $(OFILES)
 	$(CC) $(CFLAGS) -o $(SRC_FOLDER)$(NAME) $(OFILES)
