@@ -9,7 +9,9 @@
 class BitcoinExchange {
 private:
   std::map<time_t, float> _db;
-  void parse_row(std::string row);
+  void parse_db_row(std::string row);
+  void parse_input_row(std::string row);
+  void parse_input_val(std::string row, std::map<time_t, float>::iterator it);
 
 public:
   BitcoinExchange();
@@ -17,10 +19,16 @@ public:
   BitcoinExchange &operator=(const BitcoinExchange &other);
   ~BitcoinExchange();
 
-  void parse_csv(void);
-  void parse_input(char *fileName);
+  void parse_data(void);
+  void parse_input(const char *fileName);
 
   class InvalidDateException : public std::exception {
+    virtual const char *what() const throw();
+  };
+  class DateLateException : public std::exception {
+    virtual const char *what() const throw();
+  };
+  class DateEarlyException : public std::exception {
     virtual const char *what() const throw();
   };
   class InvalidRateException : public std::exception {
